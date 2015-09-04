@@ -1,0 +1,67 @@
+# Visual Studio left-overs
+*.suo        # 'user' settings like 'which file is open in Visual Studio'
+*.ncb        # Used for debugging
+*.user
+*.ccscc      # Used for versioning
+*.cache
+
+# Editor left-overs
+*.sublime-workspace
+*~           # (x)emacs
+*.bak        # Windows related
+\#*\#        # (x)emacs
+*.orig       # Own usage
+
+# Compiled files
+*/bin/
+*/obj/
+*/Obj/       # git is case sensitive
+*/Generated_Code/
+PrecompiledWeb
+*ClientBin
+*.[Oo]bj
+*.user
+*.aps
+*.pch
+*.sublime-workspace
+*.vspscc
+*.vssscc
+*_i.c
+*_p.c
+*.ncb
+*.suo
+*.tlb
+*.tlh
+*.bak
+*.[Cc]ache
+*.ilk
+*.log
+*.lib
+*.sbr
+*.sdf
+*.datasource
+ipch/
+obj/
+[Bb]in
+[Dd]ebug*/
+[Rr]elease*/
+*.orig
+
+App_Data/
+# Windows left-overs
+Thumbs.db    # Having images in the source tree generates those files in Explorer
+
+# Resharper Files
+_ReSharper.*
+*.resharper.user
+
+packages/nHibernateProfiler/log.txt.*
+testReports/
+
+*.2
+*.1
+*.2
+*.3
+*.4
+packages\nHibernateProfiler*/
+packages\nHibernateProfiler*/

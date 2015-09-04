@@ -1,0 +1,89 @@
+﻿@using System.Web.Optimization
+@using StreetFood.Authentication
+@model dynamic
+
+@{
+    ViewBag.Title = "Little Rock Street Food";
+}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge;"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="google-signin-client_id" content="373289761542-q89spcr7cr3su1c3f6gcvvrs15jpd67q.apps.googleusercontent.com">
+    <title>LR.SF - @ViewBag.Title</title>
+
+    <link rel="shortcut icon" href="@Url.Content("~/Content/Images/Icons/favicon.ico")" type="image/x-icon"/>
+    <link rel="icon" href="@Url.Content("~/Content/Images/Icons/favicon.ico")" type="image/x-icon"/>
+
+    @Styles.Render("~/Content/css")
+
+    @if (IsSectionDefined("styles"))
+    {
+        @RenderSection("styles")
+    }
+</head>
+<body>
+<div class="container">
+    <div class="header clearfix">
+        @if (Accountant.LoggedIn(Context))
+        {
+            <img class="pull-right" src="@Accountant.GetAccount(Context).ImageUrl?s=40&d=retro" style="width: 40px; height: 40px; border-radius: 20px; -webkit-border-radius: 20px; -moz-border-radius: 20px;"/>
+            <nav>
+                <ul class="nav nav-pills pull-right">
+                    <li role="presentation" class="active"><a href="@Url.Action("Index", "Home")">Home</a></li>
+                    <li role="presentation"><a href="@Url.Action("Index", "Appointment")">Appointments</a></li>
+                </ul>
+            </nav>
+        }
+        
+        <h3 class="text-muted pull-left">Little Rock Street Food</h3>
+        <div id="g-signin" class="pull-right" style="display: none" data-onsuccess="onSignIn"></div>
+    </div>
+    @RenderBody()
+    <footer class="footer">
+        <p>&copy; LR.SF 2015</p>
+    </footer>
+</div>
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
+    <script src="https://apis.google.com/js/platform.js"></script>
+    @Scripts.Render("~/Scripts/js")
+    <script type="text/javascript">
+        function onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            $.post('@Url.Action("GoogleSignIn", "Account")', {
+                    Name: profile.getName(),
+                    Image: profile.getImageUrl(),
+                    Email: profile.getEmail(),
+                    IdToken: googleUser.getAuthResponse().id_token
+                })
+                .then(function (data) {if (data) {location.reload();}});
+        }
+
+        $(function () {
+            @if (!Accountant.LoggedIn(Context))
+            {
+                <text>
+                gapi.signin2.render('g-signin', {
+                'width': 300,
+                'height': 50,
+                'longtitle': true,
+                'theme': 'dark',
+                'onsuccess': onSignIn
+                });
+                $('#g-signin').show();
+                </text>
+            }
+            
+        });
+    </script>
+    @if (IsSectionDefined("scripts"))
+    {
+        @RenderSection("scripts")
+    }
+</body>
+</html>

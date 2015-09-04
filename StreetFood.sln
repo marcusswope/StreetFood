@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreetFood.Web", "StreetFood.Web\StreetFood.Web.csproj", "{F68192F8-683F-4E21-87DD-A742F54AAD05}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreetFood", "StreetFood\StreetFood.csproj", "{03E5D596-4D03-4CD3-A7F5-EB692BEFB2A5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F68192F8-683F-4E21-87DD-A742F54AAD05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F68192F8-683F-4E21-87DD-A742F54AAD05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F68192F8-683F-4E21-87DD-A742F54AAD05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F68192F8-683F-4E21-87DD-A742F54AAD05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03E5D596-4D03-4CD3-A7F5-EB692BEFB2A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03E5D596-4D03-4CD3-A7F5-EB692BEFB2A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03E5D596-4D03-4CD3-A7F5-EB692BEFB2A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03E5D596-4D03-4CD3-A7F5-EB692BEFB2A5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
