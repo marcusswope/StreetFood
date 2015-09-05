@@ -92,7 +92,7 @@
                 infoWindows.push(infoWindow);
                 marker.addListener('click', function() {
                     $.each(infoWindows, function(i, window) { window.close(); });
-                    infoWindow.setContent('<div style="padding-bottom: 10px"><strong>' + appointment.LocationName + '</strong><br/>' + appointment.Address + '<br/><br/>' + moment(appointment.StartDate).format('M/d/YY h:mma') + ' - ' + moment(appointment.EndDate).format('M/d/YY h:mma'));
+                    infoWindow.setContent('<div style="padding-bottom: 10px"><strong>' + appointment.LocationName + '</strong><br/>' + appointment.Address + '<br/><br/>' + appointment.TimeDescription);
                     infoWindow.open(map, marker);
                 });
             });
