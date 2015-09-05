@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Raven.Client;
@@ -30,7 +31,7 @@ namespace StreetFood.Web.Controllers
         {
             _session.Store(appointment);
             _session.SaveChanges();
-            return View("Index");
+            return Json(true);
         }
 
         public ActionResult Add()
@@ -49,5 +50,19 @@ namespace StreetFood.Web.Controllers
             _session.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        public ActionResult View(Guid id)
+        {
+            var truck = _session.Load<FoodTruck>(FoodTruck.Load(id));
+            var appointments = _session.Query<Appointment>().Where(x => x.FoodTruckId == id).ToList();
+            var model = new ViewFoodTruckModel {Truck = truck, Appointments = appointments};
+            return View(model);
+        }
+    }
+
+    public class ViewFoodTruckModel
+    {
+        public FoodTruck Truck { get; set; }
+        public List<Appointment> Appointments { get; set; }
     }
 }

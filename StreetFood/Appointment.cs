@@ -5,6 +5,7 @@ namespace StreetFood
     public class Appointment
     {
         public Guid Id { get; set; }
+        public Guid FoodTruckId { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public string LocationName { get; set; }

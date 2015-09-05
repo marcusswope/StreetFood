@@ -8,5 +8,10 @@ namespace StreetFood
         public string Name { get; set; }
         public string Description { get; set; }
         public string ImageUrl { get; set; }
+
+        public static string Load(Guid id)
+        {
+            return @"FoodTrucks/" + id;
+        }
     }
 }
