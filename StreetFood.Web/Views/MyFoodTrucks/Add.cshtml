@@ -1,0 +1,24 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "Add Truck";
+}
+
+<form action="@Url.Action("Add")" method="POST">
+    <div class="input-group input-group-lg">
+        <span class="input-group-addon glyphicon glyphicon-road"></span>
+        <input id="Name" name="Name" type="text" class="form-control" placeholder="name of truck"/>
+    </div>
+    <br/>
+    <div class="input-group input-group-lg">
+        <span class="input-group-addon" id="descriptionAddon">...</span>
+        <textarea style="height:150px" id="Description" name="Description" class="form-control" placeholder="more detailed description" aria-describedby="descriptionAddon"></textarea>
+    </div>
+    <br/>
+    <div class="input-group input-group-lg">
+        <span class="input-group-addon glyphicon glyphicon-picture"></span>
+        <input id="ImageUrl" name="ImageUrl" type="text" class="form-control" placeholder="logo"/>
+    </div>
+    <br/>
+    <input class="btn btn-primary btn-lg" value="Save" type="submit"/>
+</form>

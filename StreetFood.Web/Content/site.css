@@ -96,3 +96,12 @@ body {
   outline: none;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
+
+nav {background:#FFF;float:left;}
+nav ul {text-align:center;}
+nav ul li {float:left;display:inline;}
+nav ul li a {display:block;padding:15px 25px;color:#444;}
+nav ul li ul {position:absolute;width:90px;background:#FFF;}
+nav ul li ul li {width:100%}
+nav ul li ul li a {display:block;padding:15px 10px;color:#444;}        
+img.circle {width: 40px; height: 40px; border-radius: 20px; -webkit-border-radius: 20px; -moz-border-radius: 20px;}

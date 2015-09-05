@@ -1,0 +1,109 @@
+﻿@using StreetFood.Web.Controllers
+@model List<FoodTruck>
+
+@{
+    ViewBag.Title = "Little Rock Street Food";
+}
+<ul class="list-group">
+    @foreach (var truck in Model)
+    {
+        <li class="list-group-item">
+            <a href="#" class="clearfix">
+                <div style="width: 100%">
+                    <img class="pull-right badge" src="@truck.ImageUrl"/>
+                    @truck.Name
+                </div>
+            </a>
+        </li>
+    }
+</ul>
+<a href="@Url.Action("Add")" type="button" class="btn btn-lg btn-primary">Add Truck</a>
+<br />
+<br />
+<input type="text" id="gm-search" class="gm-control" placeholder="Enter a location" />
+<div class="jumbotron" id="map" style="height: 500px"></div>
+@section scripts {
+    <script type="text/javascript">
+        var autocomplete;
+
+        function initialize() {
+            var mapOptions = {
+                center: new google.maps.LatLng(34.77, -92.48),
+                zoom: 11,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                styles: [{ "featureType": "administrative", "elementType": "labels.text.fill", "stylers": [{ "color": "#444444" }] }, { "featureType": "landscape", "elementType": "all", "stylers": [{ "color": "#f2f2f2" }] }, { "featureType": "poi", "elementType": "all", "stylers": [{ "visibility": "off" }] }, { "featureType": "road", "elementType": "all", "stylers": [{ "saturation": -100 }, { "lightness": 45 }] }, { "featureType": "road.highway", "elementType": "all", "stylers": [{ "visibility": "simplified" }] }, { "featureType": "road.arterial", "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }, { "featureType": "transit", "elementType": "all", "stylers": [{ "visibility": "off" }] }, { "featureType": "water", "elementType": "all", "stylers": [{ "color": "#46bcec" }, { "visibility": "on" }] }]
+            }
+            var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                    map.setCenter(initialLocation);
+                });
+            }
+
+            var input = document.getElementById('gm-search');
+            map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+            autocomplete = new google.maps.places.Autocomplete(input);
+            autocomplete.bindTo('bounds', map);
+
+            var infoWindow = new google.maps.InfoWindow();
+            var marker = new google.maps.Marker({
+                map: map,
+                anchorPoint: new google.maps.Point(0, -29)
+            });
+
+            autocomplete.addListener('place_changed', function () {
+                infoWindow.close();
+                marker.setVisible(false);
+                var place = autocomplete.getPlace();
+                if (place.geometry.viewport) {
+                    map.fitBounds(place.geometry.viewport);
+                } else {
+                    map.setCenter(place.geometry.location);
+                    map.setZoom(17);
+                }
+                marker.setIcon(({
+                    url: place.Int16ArrayConstructor,
+                    size: new google.maps.Size(71, 71),
+                    origin: new google.maps.Point(0, 0),
+                    anchor: new google.maps.Point(17, 34),
+                    scaledSize: new google.maps.Size(35, 35)
+                }));
+                marker.setPosition(place.geometry.location);
+                marker.setVisible(true);
+
+                var address = '';
+                if (place.address_components) {
+                    address = [
+                        (place.address_components[0] && place.address_components[0].short_name || ''),
+                        (place.address_components[1] && place.address_components[1].short_name || ''),
+                        (place.address_components[2] && place.address_components[2].short_name || '')
+                    ].join(' ');
+                }
+
+                infoWindow.setContent('<div style="padding-bottom: 10px"><strong>' + place.name + '</strong><br/>' + address + "<br/><br/><button type='button' style='padding: 0 0 0 5px' class='addAppointment btn btn-sm glyphicon glyphicon-calendar'><span style='margin: 5px; font-family:Roboto'>Add to Calendar</span></button>");
+                infoWindow.open(map, marker);
+            });
+        }
+
+        google.maps.event.addDomListener(window, 'load', initialize);
+
+        $(document).ready(function () {
+            $(document).on('click', '.addAppointment', function () {
+                var place = autocomplete.getPlace();
+                $.post('@Url.Action("AddAppointment")',
+                {
+                    StartDate: '1/1/2016',
+                    EndDate: '1/2/2016',
+                    LocationName: place.name,
+                    Vicinity: place.vicinity,
+                    PlaceId: place.place_id,
+                    Address: place.formatted_address,
+                    Latitude: place.geometry.location.G,
+                    Longitude: place.geometry.location.K
+                });
+            });
+        });
+    </script>
+}

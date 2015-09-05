@@ -4971,8 +4971,10 @@ a.label:focus {
   background-color: #777;
   border-radius: 10px;
 }
-.badge:empty {
-  display: none;
+img.badge {
+    height: 25px;
+    background-color: transparent;
+    padding: 0
 }
 .btn .badge {
   position: relative;
@@ -5294,7 +5296,7 @@ a.thumbnail.active {
 .list-group-item {
   position: relative;
   display: block;
-  padding: 10px 15px;
+  padding: 10px 5px 5px 10px;
   margin-bottom: -1px;
   background-color: #fff;
   border: 1px solid #ddd;

@@ -21,7 +21,6 @@
     <link rel="icon" href="@Url.Content("~/Content/Images/Icons/favicon.ico")" type="image/x-icon"/>
 
     @Styles.Render("~/Content/css")
-
     @if (IsSectionDefined("styles"))
     {
         @RenderSection("styles")
@@ -32,13 +31,19 @@
     <div class="header clearfix">
         @if (Accountant.LoggedIn(Context))
         {
-            <img class="pull-right" src="@Accountant.GetAccount(Context).ImageUrl?s=40&d=retro" style="width: 40px; height: 40px; border-radius: 20px; -webkit-border-radius: 20px; -moz-border-radius: 20px;"/>
-            <nav>
-                <ul class="nav nav-pills pull-right">
-                    <li role="presentation" class="active"><a href="@Url.Action("Index", "Home")">Home</a></li>
-                    <li role="presentation"><a href="@Url.Action("Index", "Appointment")">Appointments</a></li>
+            <nav class="pull-right">
+                <ul>
+                    <li>
+                        <img class="circle" src="@Accountant.GetAccount(Context).ImageUrl?s=40&d=retro" style="cursor: pointer;"/>
+                        @Accountant.GetAccount(Context).Name
+                        <ul class="dropdown-menu" style="display: none">
+                            <li><a href="#">My Account</a></li>
+                            <li><a href="@Url.Action("Index","MyFoodTrucks")">Food Trucks</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </nav>
+            
         }
         
         <h3 class="text-muted pull-left">Little Rock Street Food</h3>
@@ -78,7 +83,16 @@
                 $('#g-signin').show();
                 </text>
             }
-            
+            $('nav li').hover(
+              function () {
+                  $('ul', this).css('top', $(this).css('top'));
+                  $('ul', this).css('left', $(this).css('left'));
+                  $('ul', this).stop().slideDown(100);
+              },
+              function () {
+                  $('ul', this).stop().slideUp(100);
+              }
+            );
         });
     </script>
     @if (IsSectionDefined("scripts"))

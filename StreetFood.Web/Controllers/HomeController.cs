@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
 using Raven.Client;
 
 namespace StreetFood.Web.Controllers
@@ -13,15 +14,8 @@ namespace StreetFood.Web.Controllers
 
         public ActionResult Index()
         {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult AddAppointment(Appointment appointment)
-        {
-            _session.Store(appointment);
-            _session.SaveChanges();
-            return View("Index");
+            var appointments = _session.Query<Appointment>().ToList();
+            return View(appointments);
         }
     }
 }
